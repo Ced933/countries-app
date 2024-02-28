@@ -1,3 +1,7 @@
+body{
+  background: rgb(238,174,202);
+background: radial-gradient(circle, rgba(238,174,202,1) 0%, rgba(148,187,233,1) 100%);
+}
 .filter-container {
   text-align: center;
   padding-bottom: 20px;
@@ -25,4 +29,52 @@ input[type="range"] {
 .range-container span {
   font-size: 1.2rem;
   transform: translateY(-3px);
+}
+.countries-container{
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+.card-container{
+  flex: 1 0 18%;
+  /* min-width: 200px; */
+  border-radius: 10px;
+ 
+
+ display: flex;
+ justify-content: center;
+ flex-direction: column;
+ align-items: center;
+  padding: 20px;
+ 
+  background: rgba(255, 255, 255, 0.19);
+  border-radius: 16px;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(5.3px);
+  -webkit-backdrop-filter: blur(5.3px);
+
+}
+h3{
+  text-align: center;
+  font-size: 18px;
+  margin-bottom: 10px;
+  text-transform: uppercase;
+  color: #407088;
+}
+h4{
+  font-size: 15px;
+  margin: 5px;
+  color: #407088;
+}
+.flag{
+  margin-bottom: 10px;
+  width: 200px;
+  height: 100px;
+  object-fit: cover;
+  border-radius: 5px;
+}
+
+p{
+  color: #e0e0e0;
+  margin-top: 5px;
 }
