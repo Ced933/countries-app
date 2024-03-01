@@ -24,7 +24,9 @@ let counterCountry:any;
 inputRange.addEventListener('input',(e:any)=>{
     rangeValue.innerHTML = e.target.value;
     countriesBox.innerHTML ="";
-   
+    console.log(inputRange.value)
+
+   createCart();
      
 })
 
@@ -35,46 +37,123 @@ const fetchData = async ()=>{
     console.log(arrayCountries)
 }
 
-// const createCart = async()=>{
-//    await fetchData();
-//     return arrayCountries
-//        .map((country:any)=>{
-//        countriesBox.innerHTML += `
-//        <div class="card-container">
-//        <img class="flag" src=${country.flags.svg} alt=${country.flags.alt} />
-//        <h3>${country.name.common}</h3>
-//        <h4>${country.capital}</h4>
-//        <p>Population: ${country.population}</p>
-       
-       
-//        </div>`
-//    })
-   
-// }
-// createCart();
+const createCart = async()=>{
+   await fetchData();
+   console.log(arrayCountries);
+   let range:number = inputRange.value;
+  let newArr = arrayCountries.slice(-range);
 
-const sortCartAZ = async()=>{
+   console.log(newArr);
+   countriesBox.innerHTML ="";
+
+    return newArr
+       .map((country:any)=>{
+       countriesBox.innerHTML += `
+       <div class="card-container">
+       <img class="flag" src=${country.flags.svg} alt=${country.flags.alt} />
+       <h3>${country.name.common}</h3>
+       <h4>${country.capital ? country.capital : ""}</h4>
+       <p>Population: ${country.population.toLocaleString()}</p>
+       
+       </div>`
+   })
+   
+}
+createCart();
+
+const alphabet = async()=>{
     await fetchData();
     countriesBox.innerHTML ="";
      arrayCountries
-        .map((country:any)=>{
+     .sort((a:any,b:any)=> {return a.name.common.localeCompare(b.name.common)}).map((country:any)=>{
             
 
        countriesBox.innerHTML += `
-        <div class="card-container">
-        <img class="flag" src=${country.flags.svg} alt=${country.flags.alt} />
-        <h3>${country.name.common}</h3>
-        <h4>${country.capital}</h4>
-        <p>Population: ${country.population}</p>
-        </div>`
-    }).sort((a:any,b:any)=> {return  b.name.common -a.name.common  })
+       
+       <div class="card-container">
+            <img class="flag" src=${country.flags.svg} alt=${country.flags.alt} />
+             <h3>${country.name.common}</h3>
+             <h4>${country.capital ? country.capital : ""}</h4>
+             <p>Population: ${country.population.toLocaleString()}</p>
+              
+              
+             </div>
+       
+        `
+    })
     
  }
- const croissant:any = document.querySelector("#minToMax");
 
- croissant.addEventListener('click', sortCartAZ)
+ const alphabetic:any = document.querySelector("#alpha");
+
+ alphabetic.addEventListener('click', alphabet)
 
 
+
+
+const croissant:any = document.querySelector("#minToMax");
+const minToMax = async()=>{
+    await fetchData();
+    countriesBox.innerHTML ="";
+     arrayCountries
+     .sort((a:any,b:any)=> {return a.population - b.population}).map((country:any)=>{
+            
+
+       countriesBox.innerHTML += `
+       
+       <div class="card-container">
+            <img class="flag" src=${country.flags.svg} alt=${country.flags.alt} />
+             <h3>${country.name.common}</h3>
+             <h4>${country.capital ? country.capital : ""}</h4>
+             <p>Population: ${country.population.toLocaleString()}</p>
+              
+              
+             </div>
+       
+        `
+    })
+    
+ }
+ croissant.addEventListener('click', minToMax)
+
+const decroissant:any = document.querySelector("#maxToMin");
+const maxToMin = async()=>{
+    await fetchData();
+    countriesBox.innerHTML ="";
+     arrayCountries
+     .sort((a:any,b:any)=> {return  b.population - a.population}).map((country:any)=>{
+            
+
+       countriesBox.innerHTML += `
+       
+       <div class="card-container">
+            <img class="flag" src=${country.flags.svg} alt=${country.flags.alt} />
+             <h3>${country.name.common}</h3>
+             <h4>${country.capital ? country.capital : "" }</h4>
+             <p>Population: ${country.population.toLocaleString()}</p>
+              
+              
+             </div>
+       
+        `
+    })
+    
+ }
+ decroissant.addEventListener('click', maxToMin)
+//  let arrayC = ['SOMALIA','KENYA','JERSEY','CHAD','DOMINICA','BENIN','AUSTRALIA']
+//  arrayC.sort((a:any,b:any) =>(b-a));
+//  console.log(arrayC);
+
+// var people = [
+//     { name: "Charlie", age: 28 },
+//     { name: "Alice", age: 25 },
+//     { name: "Bob", age: 30 },
+//   ];
+ 
+// people.sort(function(a:any,b:any) {return a.name.localeCompare(b.name)})
+ 
+// console.log(people);
+//  croissant.addEventListener('click', alphabet)
 
 
 
@@ -85,11 +164,35 @@ const sortCartAZ = async()=>{
 
 const countriesBox:any = document.querySelector('.countries-container')
 
-
-
 const inputSearch:any = document.querySelector("#inputSearch");
 
 inputSearch.addEventListener('input', ()=>{
-    console.log(inputSearch.value)
+   
+    let word = inputSearch.value.toLowerCase();
+    console.log(word);
+    
+    let newArray:any = arrayCountries.filter((country:any ) =>{
+    let lower:string = country.name.common.toLowerCase();
+    return lower.includes(word)
+    })
+
+    countriesBox.innerHTML= "";
+
+    newArray.map( (country:any) =>{
+
+        countriesBox.innerHTML += `
+       
+        <div class="card-container">
+             <img class="flag" src=${country.flags.svg} alt=${country.flags.alt} />
+              <h3>${country.name.common}</h3>
+              <h4>${country.capital ? country.capital : "" }</h4>
+              <p>Population: ${country.population.toLocaleString()}</p>
+               
+               
+              </div>
+        
+         `
+    })
+   
 
 })
